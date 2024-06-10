@@ -36,52 +36,52 @@ module top #(
 	parameter NF_C_S_AXI_DATA_WIDTH        = 32,
 	parameter NF_C_S_AXI_ADDR_WIDTH        = 32
 )(	
-`ifdef __au280__
+//`ifdef __au280__
 	output wire                    hbm_cattrip,
 	input  wire              [3:0] satellite_gpio,
-`elsif __au50__
-	output wire                    hbm_cattrip,
-	input  wire              [1:0] satellite_gpio,
-`elsif __au55n__
-	output wire                    hbm_cattrip,
-	input  wire              [3:0] satellite_gpio,
-`elsif __au55c__
-	output wire                    hbm_cattrip,
-	input  wire              [3:0] satellite_gpio,
-`elsif __au200__
+//`elsif __au50__
+//	output wire                    hbm_cattrip,
+//	input  wire              [1:0] satellite_gpio,
+//`elsif __au55n__
+//	output wire                    hbm_cattrip,
+//	input  wire              [3:0] satellite_gpio,
+//`elsif __au55c__
+//	output wire                    hbm_cattrip,
+//	input  wire              [3:0] satellite_gpio,
+//`elsif __au200__
 	//output                   [1:0] qsfp_resetl,
 	//input                    [1:0] qsfp_modprsl,
 	//input                    [1:0] qsfp_intl,
 	//output                   [1:0] qsfp_lpmode,
 	//output                   [1:0] qsfp_modsell,
-	input  wire              [3:0] satellite_gpio,
-`elsif __au250__
+//	input  wire              [3:0] satellite_gpio,
+//`elsif __au250__
 	//output                   [1:0] qsfp_resetl,
 	//input                    [1:0] qsfp_modprsl,
 	//input                    [1:0] qsfp_intl,
 	//output                   [1:0] qsfp_lpmode,
 	//output                   [1:0] qsfp_modsell,
-	input  wire              [3:0] satellite_gpio,
-`elsif __au45n__
-	input  wire              [1:0] satellite_gpio,
-`endif
+//	input  wire              [3:0] satellite_gpio,
+//`elsif __au45n__
+//	input  wire              [1:0] satellite_gpio,
+//`endif
 	input wire QSFP0_CLOCK_P,
 	input wire QSFP0_CLOCK_N,
 	input wire QSFP1_CLOCK_P,
 	input wire QSFP1_CLOCK_N,
 
 	/* QSFP port 0 */
-`ifndef BOARD_AU280
-	output wire [1:0] QSFP0_FS,
-
-	input  wire       QSFP0_INTL,
-	output wire       QSFP0_LPMODE,
-	input  wire       QSFP0_MODPRSL,
-	output wire       QSFP0_MODSELL,
-	output wire       QSFP0_RESETL,
-`else 
+//`ifndef BOARD_AU280
+//	output wire [1:0] QSFP0_FS,
+//
+//	input  wire       QSFP0_INTL,
+//	output wire       QSFP0_LPMODE,
+//	input  wire       QSFP0_MODPRSL,
+//	output wire       QSFP0_MODSELL,
+//	output wire       QSFP0_RESETL,
+//`else 
 	output wire       QSFP0_FS,
-`endif /* BOARD_AU280 */
+//`endif /* BOARD_AU280 */
 	output wire       QSFP0_RESET,
 
 	output wire [3:0] QSFP0_TX_P,
@@ -90,17 +90,17 @@ module top #(
 	input  wire [3:0] QSFP0_RX_N,
 	
 	/* QSFP port 1 */
-`ifndef BOARD_AU280
-	output wire [1:0] QSFP1_FS,
-
-	input  wire       QSFP1_INTL,
-	output wire       QSFP1_LPMODE,
-	input  wire       QSFP1_MODPRSL,
-	output wire       QSFP1_MODSELL,
-	output wire       QSFP1_RESETL,
-`else 
+//`ifndef BOARD_AU280
+//	output wire [1:0] QSFP1_FS,
+//
+//	input  wire       QSFP1_INTL,
+//	output wire       QSFP1_LPMODE,
+//	input  wire       QSFP1_MODPRSL,
+//	output wire       QSFP1_MODSELL,
+//	output wire       QSFP1_RESETL,
+//`else 
 	output wire       QSFP1_FS,
-`endif /* BOARD_AU280 */
+//`endif /* BOARD_AU280 */
 	output wire       QSFP1_RESET,
 
 	output wire [3:0] QSFP1_TX_P,
@@ -129,30 +129,30 @@ module top #(
 //  assign STAT_CATTRIP = 1'b0;
 //`endif 
 
-`ifndef BOARD_AU280
+//`ifndef BOARD_AU280
   // QSFP Clock for 156.25MHz (2'b01)
   // QSFP Clock for 161MHz (2'b1X)
-  assign QSFP0_FS      = 2'b11;
-  assign QSFP0_RESET   = 1'b0;
-  assign QSFP0_LPMODE  = 1'b0;
-  assign QSFP0_MODSELL = 1'b0;
-  assign QSFP0_RESETL  = 1'b1;
+//  assign QSFP0_FS      = 2'b11;
+//  assign QSFP0_RESET   = 1'b0;
+// assign QSFP0_LPMODE  = 1'b0;
+//  assign QSFP0_MODSELL = 1'b0;
+//  assign QSFP0_RESETL  = 1'b1;
 
   // QSFP Clock for 156.25MHz (2'b01)
   // QSFP Clock for 161MHz (2'b1X)
-  assign QSFP1_FS      = 2'b11;
-  assign QSFP1_RESET   = 1'b0;
-  assign QSFP1_LPMODE  = 1'b0;
-  assign QSFP1_MODSELL = 1'b0;
-  assign QSFP1_RESETL  = 1'b1;
-`else
+//  assign QSFP1_FS      = 2'b11;
+//  assign QSFP1_RESET   = 1'b0;
+//  assign QSFP1_LPMODE  = 1'b0;
+//  assign QSFP1_MODSELL = 1'b0;
+//  assign QSFP1_RESETL  = 1'b1;
+//`else
   // QSFP Clock for 156.25MHz
   assign QSFP0_FS = 1'b0;
   assign QSFP0_RESET = 1'b0;
   // QSFP Clock for 156.25MHz
   assign QSFP1_FS = 1'b0;
   assign QSFP1_RESET = 1'b0;
-`endif /*BOARD_AU280*/
+//`endif /*BOARD_AU280*/
 
   /* clock infrastracture */
   wire sysclk_ibufds;
@@ -300,12 +300,19 @@ module top #(
   wire [(C_NF_DATA_WIDTH/8)-1:0]  axis_i_1_tkeep,  axis_o_1_tkeep;
   wire                            axis_i_1_tready, axis_o_1_tready;
 
-  wire [C_NF_DATA_WIDTH-1:0]      axis_dma_i_tdata , axis_dma_o_tdata ;
-  wire [(C_NF_DATA_WIDTH/8)-1:0]  axis_dma_i_tkeep , axis_dma_o_tkeep ;
-  wire                            axis_dma_i_tlast , axis_dma_o_tlast ;
-  wire                            axis_dma_i_tready, axis_dma_o_tready;
-  wire [C_NF_TUSER_WIDTH-1:0]     axis_dma_i_tuser , axis_dma_o_tuser ;
-  wire                            axis_dma_i_tvalid, axis_dma_o_tvalid;
+//  wire [C_NF_DATA_WIDTH-1:0]      axis_dma_i_tdata , axis_dma_o_tdata ;
+//  wire [(C_NF_DATA_WIDTH/8)-1:0]  axis_dma_i_tkeep , axis_dma_o_tkeep ;
+//  wire                            axis_dma_i_tlast , axis_dma_o_tlast ;
+//  wire                            axis_dma_i_tready, axis_dma_o_tready;
+//  wire [C_NF_TUSER_WIDTH-1:0]     axis_dma_i_tuser , axis_dma_o_tuser ;
+//  wire                            axis_dma_i_tvalid, axis_dma_o_tvalid;
+
+  wire [C_NF_DATA_WIDTH-1:0]      axis_dma_lp_tdata;
+  wire [(C_NF_DATA_WIDTH/8)-1:0]  axis_dma_lp_tkeep;
+  wire                            axis_dma_lp_tlast;
+  wire                            axis_dma_lp_tready;
+  wire [C_NF_TUSER_WIDTH-1:0]     axis_dma_lp_tuser;
+  wire                            axis_dma_lp_tvalid;
   // ----------------------------------------------------------
   //      nf_datapath 
   // ----------------------------------------------------------
@@ -390,27 +397,33 @@ module top #(
     .s_axis_0_tvalid (axis_i_0_tvalid),
     .s_axis_0_tready (axis_i_0_tready),
     .s_axis_0_tlast  (axis_i_0_tlast ),
-`ifdef __BOARD_AU50__
-    .s_axis_1_tdata  (axis_dma_i_tdata ),
-    .s_axis_1_tkeep  (axis_dma_i_tkeep ),
-    .s_axis_1_tuser  (axis_dma_i_tuser ),
-    .s_axis_1_tvalid (axis_dma_i_tvalid),
-    .s_axis_1_tready (axis_dma_i_tready),
-    .s_axis_1_tlast  (axis_dma_i_tlast ),
-`else
+//`ifdef __BOARD_AU50__
+//    .s_axis_1_tdata  (axis_dma_i_tdata ),
+//    .s_axis_1_tkeep  (axis_dma_i_tkeep ),
+//    .s_axis_1_tuser  (axis_dma_i_tuser ),
+//    .s_axis_1_tvalid (axis_dma_i_tvalid),
+//    .s_axis_1_tready (axis_dma_i_tready),
+//    .s_axis_1_tlast  (axis_dma_i_tlast ),
+//`else
     .s_axis_1_tdata  (axis_i_1_tdata ),
     .s_axis_1_tkeep  (axis_i_1_tkeep ),
     .s_axis_1_tuser  (axis_i_1_tuser ),
     .s_axis_1_tvalid (axis_i_1_tvalid),
     .s_axis_1_tready (axis_i_1_tready),
     .s_axis_1_tlast  (axis_i_1_tlast ),
-    .s_axis_2_tdata  (axis_dma_i_tdata ),
-    .s_axis_2_tkeep  (axis_dma_i_tkeep ),
-    .s_axis_2_tuser  (axis_dma_i_tuser ),
-    .s_axis_2_tvalid (axis_dma_i_tvalid),
-    .s_axis_2_tready (axis_dma_i_tready),
-    .s_axis_2_tlast  (axis_dma_i_tlast ),
-`endif /* __BOARD_AU50__ */
+//    .s_axis_2_tdata  (axis_dma_i_tdata ),
+//    .s_axis_2_tkeep  (axis_dma_i_tkeep ),
+//    .s_axis_2_tuser  (axis_dma_i_tuser ),
+//    .s_axis_2_tvalid (axis_dma_i_tvalid),
+//    .s_axis_2_tready (axis_dma_i_tready),
+//    .s_axis_2_tlast  (axis_dma_i_tlast ),
+    .s_axis_2_tdata  (axis_dma_lp_tdata),
+    .s_axis_2_tkeep  (axis_dma_lp_tkeep),
+    .s_axis_2_tuser  (axis_dma_lp_tuser),
+    .s_axis_2_tvalid (axis_dma_lp_tvalid),
+    .s_axis_2_tready (axis_dma_lp_tready),
+    .s_axis_2_tlast  (axis_dma_lp_tlast),
+//`endif /* __BOARD_AU50__ */
     // Master Stream Ports (interface to TX queues)
     .m_axis_0_tdata  (axis_o_0_tdata ),
     .m_axis_0_tkeep  (axis_o_0_tkeep ),
@@ -418,27 +431,33 @@ module top #(
     .m_axis_0_tvalid (axis_o_0_tvalid),
     .m_axis_0_tready (axis_o_0_tready),
     .m_axis_0_tlast  (axis_o_0_tlast ),
-`ifdef __BOARD_AU50__
-    .m_axis_1_tdata  (axis_dma_o_tdata ),
-    .m_axis_1_tkeep  (axis_dma_o_tkeep ),
-    .m_axis_1_tuser  (axis_dma_o_tuser ),
-    .m_axis_1_tvalid (axis_dma_o_tvalid),
-    .m_axis_1_tready (axis_dma_o_tready),
-    .m_axis_1_tlast  (axis_dma_o_tlast )
-`else
+//`ifdef __BOARD_AU50__
+//    .m_axis_1_tdata  (axis_dma_o_tdata ),
+//    .m_axis_1_tkeep  (axis_dma_o_tkeep ),
+//    .m_axis_1_tuser  (axis_dma_o_tuser ),
+//    .m_axis_1_tvalid (axis_dma_o_tvalid),
+//    .m_axis_1_tready (axis_dma_o_tready),
+//    .m_axis_1_tlast  (axis_dma_o_tlast )
+//`else
     .m_axis_1_tdata  (axis_o_1_tdata ),
     .m_axis_1_tkeep  (axis_o_1_tkeep ),
     .m_axis_1_tuser  (axis_o_1_tuser ),
     .m_axis_1_tvalid (axis_o_1_tvalid),
     .m_axis_1_tready (axis_o_1_tready),
     .m_axis_1_tlast  (axis_o_1_tlast ),
-    .m_axis_2_tdata  (axis_dma_o_tdata ),
-    .m_axis_2_tkeep  (axis_dma_o_tkeep ),
-    .m_axis_2_tuser  (axis_dma_o_tuser ),
-    .m_axis_2_tvalid (axis_dma_o_tvalid),
-    .m_axis_2_tready (axis_dma_o_tready),
-    .m_axis_2_tlast  (axis_dma_o_tlast )
-`endif /* __BOARD_AU50__ */
+    .m_axis_2_tdata  (axis_dma_lp_tdata ),
+    .m_axis_2_tkeep  (axis_dma_lp_tkeep ),
+    .m_axis_2_tuser  (axis_dma_lp_tuser ),
+    .m_axis_2_tvalid (axis_dma_lp_tvalid),
+    .m_axis_2_tready (axis_dma_lp_tready),
+    .m_axis_2_tlast  (axis_dma_lp_tlast )
+//    .m_axis_2_tdata  (),
+//    .m_axis_2_tkeep  (),
+//    .m_axis_2_tuser  (),
+//    .m_axis_2_tvalid (),
+//    .m_axis_2_tready (),
+//    .m_axis_2_tlast  ()
+//`endif /* __BOARD_AU50__ */
   );
 
   axi_clock_converter_0 u_clk_conv (
@@ -535,35 +554,35 @@ module top #(
     .C_TDATA_WIDTH    (C_IF_DATA_WIDTH),
     .C_TUSER_WIDTH    (C_IF_TUSER_WIDTH)
   ) u_top_wrapper (
-`ifdef __au280__
+//`ifdef __au280__
     .hbm_cattrip    (hbm_cattrip   ),
     .satellite_gpio (satellite_gpio),
-`elsif __au50__
-    .hbm_cattrip    (hbm_cattrip   ),
-    .satellite_gpio (satellite_gpio),
-`elsif __au55n__
-    .hbm_cattrip    (hbm_cattrip   ),
-    .satellite_gpio (satellite_gpio),
-`elsif __au55c__
-    .hbm_cattrip    (hbm_cattrip   ),
-    .satellite_gpio (satellite_gpio),
-`elsif __au200__
-    .qsfp_resetl    (/*qsfp_resetl   */),
-    .qsfp_modprsl   (/*qsfp_modprsl  */),
-    .qsfp_intl      (/*qsfp_intl     */),
-    .qsfp_lpmode    (/*qsfp_lpmode   */),
-    .qsfp_modsell   (/*qsfp_modsell  */),
-    .satellite_gpio (satellite_gpio),
-`elsif __au250__
-    .qsfp_resetl    (/*qsfp_resetl   */),
-    .qsfp_modprsl   (/*qsfp_modprsl  */),
-    .qsfp_intl      (/*qsfp_intl     */),
-    .qsfp_lpmode    (/*qsfp_lpmode   */),
-    .qsfp_modsell   (/*qsfp_modsell  */),
-    .satellite_gpio (satellite_gpio),
-`elsif __au45n__
-    .satellite_gpio (satellite_gpio),
-`endif
+//`elsif __au50__
+//    .hbm_cattrip    (hbm_cattrip   ),
+//    .satellite_gpio (satellite_gpio),
+//`elsif __au55n__
+//    .hbm_cattrip    (hbm_cattrip   ),
+//    .satellite_gpio (satellite_gpio),
+//`elsif __au55c__
+//    .hbm_cattrip    (hbm_cattrip   ),
+//    .satellite_gpio (satellite_gpio),
+//`elsif __au200__
+//   .qsfp_resetl    (/*qsfp_resetl   */),
+//    .qsfp_modprsl   (/*qsfp_modprsl  */),
+//    .qsfp_intl      (/*qsfp_intl     */),
+//    .qsfp_lpmode    (/*qsfp_lpmode   */),
+//   .qsfp_modsell   (/*qsfp_modsell  */),
+//    .satellite_gpio (satellite_gpio),
+//`elsif __au250__
+//    .qsfp_resetl    (/*qsfp_resetl   */),
+//   .qsfp_modprsl   (/*qsfp_modprsl  */),
+//    .qsfp_intl      (/*qsfp_intl     */),
+//   .qsfp_lpmode    (/*qsfp_lpmode   */),
+//    .qsfp_modsell   (/*qsfp_modsell  */),
+//    .satellite_gpio (satellite_gpio),
+//`elsif __au45n__
+//    .satellite_gpio (satellite_gpio),
+//`endif
     // QSFP port0
     .qsfp0_rxp         (QSFP0_RX_P),
     .qsfp0_rxn         (QSFP0_RX_N),
@@ -610,19 +629,31 @@ module top #(
     .m_axil_rresp      (m_axil_rresp  ),
     .m_axil_rready     (m_axil_rready ),
     // Slave Stream Ports
-    .axis_dma_o_tdata  (axis_dma_o_tdata ),
-    .axis_dma_o_tkeep  (axis_dma_o_tkeep ),
-    .axis_dma_o_tuser  (axis_dma_o_tuser ),
-    .axis_dma_o_tvalid (axis_dma_o_tvalid),
-    .axis_dma_o_tready (axis_dma_o_tready),
-    .axis_dma_o_tlast  (axis_dma_o_tlast ),
+//    .axis_dma_o_tdata  (axis_dma_o_tdata ),
+//    .axis_dma_o_tkeep  (axis_dma_o_tkeep ),
+//    .axis_dma_o_tuser  (axis_dma_o_tuser ),
+//    .axis_dma_o_tvalid (axis_dma_o_tvalid),
+//    .axis_dma_o_tready (axis_dma_o_tready),
+//    .axis_dma_o_tlast  (axis_dma_o_tlast ),
+    .axis_dma_o_tdata  (),
+    .axis_dma_o_tkeep  (),
+    .axis_dma_o_tuser  (),
+    .axis_dma_o_tvalid (),
+    .axis_dma_o_tready (),
+    .axis_dma_o_tlast  (),
     // Master Stream Ports
-    .axis_dma_i_tdata  (axis_dma_i_tdata ),
-    .axis_dma_i_tkeep  (axis_dma_i_tkeep ),
-    .axis_dma_i_tuser  (axis_dma_i_tuser ),
-    .axis_dma_i_tvalid (axis_dma_i_tvalid),
-    .axis_dma_i_tready (axis_dma_i_tready),
-    .axis_dma_i_tlast  (axis_dma_i_tlast ),
+//    .axis_dma_i_tdata  (axis_dma_i_tdata ),
+//    .axis_dma_i_tkeep  (axis_dma_i_tkeep ),
+//    .axis_dma_i_tuser  (axis_dma_i_tuser ),
+//    .axis_dma_i_tvalid (axis_dma_i_tvalid),
+//    .axis_dma_i_tready (axis_dma_i_tready),
+//    .axis_dma_i_tlast  (axis_dma_i_tlast ),
+    .axis_dma_i_tdata  (),
+    .axis_dma_i_tkeep  (),
+    .axis_dma_i_tuser  (),
+    .axis_dma_i_tvalid (),
+    .axis_dma_i_tready (),
+    .axis_dma_i_tlast  (),
     // Slave Stream Ports
     .axis_o_0_tdata    (axis_o_0_tdata ),
     .axis_o_0_tkeep    (axis_o_0_tkeep ),

@@ -25,7 +25,7 @@
 all: update clean
 	sed -i -e "s/parameter int NUM_PHYS_FUNC = 1/parameter int NUM_PHYS_FUNC = 2/g" hdl/open_nic_shell.sv
 	sed -i -e "s/parameter int NUM_CMAC_PORT = 1/parameter int NUM_CMAC_PORT = 2/g" hdl/open_nic_shell.sv
-	vivado -mode batch -source xilinx_shell.tcl
+	# vivado -mode batch -source xilinx_shell.tcl
 
 update:
 	bash update.sh

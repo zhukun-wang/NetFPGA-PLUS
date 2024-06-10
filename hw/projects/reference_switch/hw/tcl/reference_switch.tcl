@@ -32,11 +32,13 @@ set board_name  $::env(BOARD_NAME)
 
 set proj_dir ./project
 set public_repo_dir $::env(NFPLUS_FOLDER)/hw/lib
+set XILINX_SHELL_PATH $::env(NFPLUS_FOLDER)/hw/lib/xilinx/xilinx_shell_v1_0_0/
 set repo_dir ./ip_repo
 set project_constraints "${public_repo_dir}/common/constraints/${board_name}_general.xdc"
+set ip_build_dir ./ip_repo/xilinx/xilinx_shell_v1_0_0/ip_proj
 
 set start_time [exec date +%s]
-set_param general.maxThreads 8
+set_param general.maxThreads 32
 set_param synth.elaboration.rodinMoreOptions "rt::set_parameter max_loop_limit 200000"
 set_param board.repoPaths $::env(BOARD_FILE_PATH)
 #####################################
@@ -99,6 +101,9 @@ set_property constrset constraints [get_runs impl_1]
 #####################################
 # Project 
 #####################################
+
+source "${XILINX_SHELL_PATH}/xilinx_shell.tcl"
+
 update_ip_catalog
 # OPL
 create_ip -name switch_output_port_lookup -vendor NetFPGA -library NetFPGA -module_name switch_output_port_lookup_ip
@@ -123,14 +128,14 @@ set_property generate_synth_checkpoint false [get_files output_queues_ip.xci]
 reset_target all [get_ips output_queues_ip]
 generate_target all [get_ips output_queues_ip]
 
-create_ip -name xilinx_shell -vendor xilinx -library xilinx -module_name xilinx_shell_ip
-set_property CONFIG.MAX_PKT_LEN 1518 [get_ips xilinx_shell_ip]
-set_property CONFIG.NUM_QUEUE 2048 [get_ips xilinx_shell_ip]
-set_property CONFIG.NUM_PHYS_FUNC 2 [get_ips xilinx_shell_ip]
-set_property CONFIG.NUM_CMAC_PORT 2 [get_ips xilinx_shell_ip]
-set_property generate_synth_checkpoint false [get_files xilinx_shell_ip.xci]
-reset_target all [get_ips xilinx_shell_ip]
-generate_target all [get_ips xilinx_shell_ip]
+# create_ip -name xilinx_shell -vendor xilinx -library xilinx -module_name xilinx_shell_ip
+# set_property CONFIG.MAX_PKT_LEN 1518 [get_ips xilinx_shell_ip]
+# set_property CONFIG.NUM_QUEUE 2048 [get_ips xilinx_shell_ip]
+# set_property CONFIG.NUM_PHYS_FUNC 2 [get_ips xilinx_shell_ip]
+# set_property CONFIG.NUM_CMAC_PORT 2 [get_ips xilinx_shell_ip]
+# set_property generate_synth_checkpoint false [get_files xilinx_shell_ip.xci]
+# reset_target all [get_ips xilinx_shell_ip]
+# generate_target all [get_ips xilinx_shell_ip]
 
 create_ip -name nf_mac_attachment -vendor NetFPGA -library NetFPGA -module_name nf_mac_attachment_ip
 set_property CONFIG.C_M_AXIS_DATA_WIDTH ${datapath_width_bit} [get_ips nf_mac_attachment_ip]

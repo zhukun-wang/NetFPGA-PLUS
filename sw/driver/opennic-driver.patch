@@ -36,14 +36,30 @@ diff -uprN ./onic_hardware.h ./onic_hardware.h
 diff -uprN ./onic_main.c ./onic_main.c
 --- ./onic_main.c	2023-12-07 12:27:36.237535443 +0000
 +++ ./onic_main.c	2023-12-07 12:33:38.980629056 +0000
-@@ -22,6 +22,7 @@
+@@ -22,14 +22,15 @@
  #include <linux/etherdevice.h>
  #include <linux/netdevice.h>
  #include <linux/moduleparam.h>
+-
+-#include "onic.h"
+-#include "onic_hardware.h"
+-#include "onic_lib.h"
+-#include "onic_common.h"
+-#include "onic_netdev.h"
+-
+-#undef CMS_SUPPORT    /* Need CMS IP in the design @320000 offset */
 +#include <linux/version.h>
-
- #include "onic.h"
- #include "onic_hardware.h"
++
++#include "onic.h"
++#include "onic_hardware.h"
++#include "onic_lib.h"
++#include "onic_common.h"
++#include "onic_netdev.h"
++
++#define CMS_SUPPORT   /* Need CMS IP in the design @320000 offset */
+ 
+ #ifndef ONIC_VF
+ #define DRV_STR "OpenNIC Linux Kernel Driver"
 @@ -129,6 +130,9 @@ static const struct net_device_ops onic_
  	.ndo_start_xmit = onic_xmit_frame,
  	.ndo_set_mac_address = onic_set_mac_address,

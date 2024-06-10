@@ -77,7 +77,7 @@ clean: libclean toolsclean projectsclean swclean
 cores:
 	make -C $(LIB_HW_DIR)/xilinx/cam_v1_1_0/
 	make -C $(LIB_HW_DIR)/xilinx/tcam_v1_1_0/
-	make -C $(LIB_HW_DIR)/xilinx/xilinx_shell_v1_0_0/
+	# make -C $(LIB_HW_DIR)/xilinx/xilinx_shell_v1_0_0/
 	make -C $(LIB_HW_DIR)/std/fallthrough_small_fifo_v1_0_0/
 	make -C $(LIB_HW_DIR)/contrib/nf_endianess_manager_v1_0_0/
 	make -C $(LIB_HW_DIR)/std/axis_fifo_v1_0_0/
@@ -86,9 +86,9 @@ cores:
 	make -C $(LIB_HW_DIR)/std/input_arbiter_v1_0_0/
 	make -C $(LIB_HW_DIR)/std/output_queues_v1_0_0/
 	make -C $(LIB_HW_DIR)/std/switch_output_port_lookup_v1_0_1/
-	make -C $(LIB_HW_DIR)/std/nic_output_port_lookup_v1_0_0/
-	make -C $(LIB_HW_DIR)/std/switch_lite_output_port_lookup_v1_0_0/
-	make -C $(LIB_HW_DIR)/std/router_output_port_lookup_v1_0_0/
+	# make -C $(LIB_HW_DIR)/std/nic_output_port_lookup_v1_0_0/
+	# make -C $(LIB_HW_DIR)/std/switch_lite_output_port_lookup_v1_0_0/
+	# make -C $(LIB_HW_DIR)/std/router_output_port_lookup_v1_0_0/
 	make -C $(LIB_HW_DIR)/std/barrier_v1_0_0/
 	make -C $(LIB_HW_DIR)/std/axi_sim_transactor_v1_0_0/
 	make -C $(LIB_HW_DIR)/std/axis_sim_record_v1_0_0/
