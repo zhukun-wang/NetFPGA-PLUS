@@ -1,39 +1,11 @@
-#
-# Copyright (c) 2021 Yuta Tokusashi
-# All rights reserved.
-#
-# This software was developed by the University of Cambridge Computer
-# Laboratory under EPSRC EARL Project EP/P025374/1 alongside support 
-# from Xilinx Inc.
-#
-# @NETFPGA_LICENSE_HEADER_START@
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#  http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-# @NETFPGA_LICENSE_HEADER_END@
-#
+This branch enables the CMS module which can measure the power of NetFPGA PLUS through PCIe.
 
-Welcome to the NetFPGA-PLUS base package.
+Current design has specifically optimizations for the AU280. Timing constraints and placement have been modified. And all possibilities of interfaces for models other than AU280 have been commented out in "top.v" and "top_wrapper.sv".
 
-For documentation on its content and use, as well as general
-information on the NetFPGA-SUME platform, please visit the
-documentation wiki:
+Currently, the tx and rx port of nf_attachment_dma in "top.v" are connected together.
 
-https://github.com/NetFPGA/NetFPGA-PLUS/wiki
+lm-sensors is used to measure power. To install lm-sensors framework:
+$ sudo apt install lm-sensors
 
-The wiki additionally contains a useful "Getting Started Guide"
-for new users, which can be found here:
-
-https://github.com/NetFPGA/NetFPGA-PLUS/wiki/Getting-Started-Guide
-
-Have fun!
+To measure the power of NetFPGA-PLUS:
+$ sensors
