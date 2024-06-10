@@ -77,7 +77,7 @@ clean: libclean toolsclean projectsclean swclean
 cores:
 	make -C $(LIB_HW_DIR)/xilinx/cam_v1_1_0/
 	make -C $(LIB_HW_DIR)/xilinx/tcam_v1_1_0/
-	# make -C $(LIB_HW_DIR)/xilinx/xilinx_shell_v1_0_0/
+	make -C $(LIB_HW_DIR)/xilinx/xilinx_shell_v1_0_0/
 	make -C $(LIB_HW_DIR)/std/fallthrough_small_fifo_v1_0_0/
 	make -C $(LIB_HW_DIR)/contrib/nf_endianess_manager_v1_0_0/
 	make -C $(LIB_HW_DIR)/std/axis_fifo_v1_0_0/
