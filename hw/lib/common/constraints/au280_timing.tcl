@@ -52,10 +52,10 @@ create_pblock pblock_cmac_subsystem
 add_cells_to_pblock [get_pblocks pblock_cmac_subsystem] [get_cells -quiet {u_top_wrapper/xilinx_nic_shell/cmac_port*.cmac_subsystem_inst}]
 resize_pblock [get_pblocks pblock_cmac_subsystem] -add {SLR2}
 
-create_pblock pblock_nf_datapath
-add_cells_to_pblock [get_pblocks pblock_nf_datapath] [get_cells -quiet [list nf_datapath_0]]
-#add_cells_to_pblock [get_pblocks pblock_nf_datapath] [get_cells -quiet [list u_top_wrapper/u_nf_attachment]]
-resize_pblock [get_pblocks pblock_nf_datapath] -add {SLR1}
+#create_pblock pblock_nf_datapath
+#add_cells_to_pblock [get_pblocks pblock_nf_datapath] [get_cells -quiet [list nf_datapath_0]]
+##add_cells_to_pblock [get_pblocks pblock_nf_datapath] [get_cells -quiet [list u_top_wrapper/u_nf_attachment]]
+#resize_pblock [get_pblocks pblock_nf_datapath] -add {SLR1}
 
 
 

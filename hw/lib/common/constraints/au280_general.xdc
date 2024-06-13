@@ -90,9 +90,9 @@ set_property -dict {PACKAGE_PIN J31 IOSTANDARD LVCMOS18} [get_ports satellite_gp
 
 # Datapath Clock
 # 340MHz
-create_clock -period 2.941 -name dp_clk [get_pins -hier -filter name=~*u_clk_wiz_1/clk_out1]
+# create_clock -period 2.941 -name dp_clk [get_pins -hier -filter name=~*u_clk_wiz_1/clk_out1]
 # 300MHz
-# create_clock -period 3.333 -name dp_clk [get_pins -hier -filter name=~*u_clk_wiz_1/clk_out1]
+create_clock -period 3.333 -name dp_clk [get_pins -hier -filter name=~*u_clk_wiz_1/clk_out1]
 
 set_false_path -from [get_clocks axis_aclk] -to [get_clocks dp_clk]
 set_false_path -from [get_clocks dp_clk] -to [get_clocks axis_aclk]

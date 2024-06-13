@@ -45,7 +45,7 @@ set_param board.repoPaths $::env(BOARD_FILE_PATH)
 # Design Parameters on NF_DATAPATH
 #####################################
 set datapath_width_bit    1024
-set datapath_freq_mhz     340
+set datapath_freq_mhz     300
 set opl_bcam_size         16
 
 set opl_cam_depth_bits    [expr int(log(${opl_bcam_size})/log(2))]
