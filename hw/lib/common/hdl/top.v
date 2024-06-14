@@ -313,6 +313,7 @@ module top #(
   wire                            axis_dma_lp_tready;
   wire [C_NF_TUSER_WIDTH-1:0]     axis_dma_lp_tuser;
   wire                            axis_dma_lp_tvalid;
+  
   // ----------------------------------------------------------
   //      nf_datapath 
   // ----------------------------------------------------------
@@ -417,12 +418,12 @@ module top #(
 //    .s_axis_2_tvalid (axis_dma_i_tvalid),
 //    .s_axis_2_tready (axis_dma_i_tready),
 //    .s_axis_2_tlast  (axis_dma_i_tlast ),
-    .s_axis_2_tdata  (axis_dma_lp_tdata),
-    .s_axis_2_tkeep  (axis_dma_lp_tkeep),
-    .s_axis_2_tuser  (axis_dma_lp_tuser),
-    .s_axis_2_tvalid (axis_dma_lp_tvalid),
-    .s_axis_2_tready (axis_dma_lp_tready),
-    .s_axis_2_tlast  (axis_dma_lp_tlast),
+    .s_axis_2_tdata  ( ),
+    .s_axis_2_tkeep  ( ),
+    .s_axis_2_tuser  ( ),
+    .s_axis_2_tvalid ( ),
+    .s_axis_2_tready ( ),
+    .s_axis_2_tlast  ( ),
 //`endif /* __BOARD_AU50__ */
     // Master Stream Ports (interface to TX queues)
     .m_axis_0_tdata  (axis_o_0_tdata ),
@@ -445,12 +446,12 @@ module top #(
     .m_axis_1_tvalid (axis_o_1_tvalid),
     .m_axis_1_tready (axis_o_1_tready),
     .m_axis_1_tlast  (axis_o_1_tlast ),
-    .m_axis_2_tdata  (axis_dma_lp_tdata ),
-    .m_axis_2_tkeep  (axis_dma_lp_tkeep ),
-    .m_axis_2_tuser  (axis_dma_lp_tuser ),
-    .m_axis_2_tvalid (axis_dma_lp_tvalid),
-    .m_axis_2_tready (axis_dma_lp_tready),
-    .m_axis_2_tlast  (axis_dma_lp_tlast )
+    .m_axis_2_tdata  ( ),
+    .m_axis_2_tkeep  ( ),
+    .m_axis_2_tuser  ( ),
+    .m_axis_2_tvalid ( ),
+    .m_axis_2_tready ( ),
+    .m_axis_2_tlast  ( )
 //    .m_axis_2_tdata  (),
 //    .m_axis_2_tkeep  (),
 //    .m_axis_2_tuser  (),
@@ -635,12 +636,12 @@ module top #(
 //    .axis_dma_o_tvalid (axis_dma_o_tvalid),
 //    .axis_dma_o_tready (axis_dma_o_tready),
 //    .axis_dma_o_tlast  (axis_dma_o_tlast ),
-    .axis_dma_o_tdata  (),
-    .axis_dma_o_tkeep  (),
-    .axis_dma_o_tuser  (),
-    .axis_dma_o_tvalid (),
-    .axis_dma_o_tready (),
-    .axis_dma_o_tlast  (),
+    .axis_dma_o_tdata  (axis_dma_lp_tdata ),
+    .axis_dma_o_tkeep  (axis_dma_lp_tkeep ),
+    .axis_dma_o_tuser  (axis_dma_lp_tuser ),
+    .axis_dma_o_tvalid (axis_dma_lp_tvalid),
+    .axis_dma_o_tready (axis_dma_lp_tready),
+    .axis_dma_o_tlast  (axis_dma_lp_tlast ),
     // Master Stream Ports
 //    .axis_dma_i_tdata  (axis_dma_i_tdata ),
 //    .axis_dma_i_tkeep  (axis_dma_i_tkeep ),
@@ -648,12 +649,12 @@ module top #(
 //    .axis_dma_i_tvalid (axis_dma_i_tvalid),
 //    .axis_dma_i_tready (axis_dma_i_tready),
 //    .axis_dma_i_tlast  (axis_dma_i_tlast ),
-    .axis_dma_i_tdata  (),
-    .axis_dma_i_tkeep  (),
-    .axis_dma_i_tuser  (),
-    .axis_dma_i_tvalid (),
-    .axis_dma_i_tready (),
-    .axis_dma_i_tlast  (),
+    .axis_dma_i_tdata  (axis_dma_lp_tdata ),
+    .axis_dma_i_tkeep  (axis_dma_lp_tkeep ),
+    .axis_dma_i_tuser  (axis_dma_lp_tuser ),
+    .axis_dma_i_tvalid (axis_dma_lp_tvalid),
+    .axis_dma_i_tready (axis_dma_lp_tready),
+    .axis_dma_i_tlast  (axis_dma_lp_tlast ),
     // Slave Stream Ports
     .axis_o_0_tdata    (axis_o_0_tdata ),
     .axis_o_0_tkeep    (axis_o_0_tkeep ),
