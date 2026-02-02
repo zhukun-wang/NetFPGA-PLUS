@@ -86,9 +86,6 @@ cores:
 	make -C $(LIB_HW_DIR)/std/input_arbiter_v1_0_0/
 	make -C $(LIB_HW_DIR)/std/output_queues_v1_0_0/
 	make -C $(LIB_HW_DIR)/std/switch_output_port_lookup_v1_0_1/
-	make -C $(LIB_HW_DIR)/std/nic_output_port_lookup_v1_0_0/
-	make -C $(LIB_HW_DIR)/std/switch_lite_output_port_lookup_v1_0_0/
-	make -C $(LIB_HW_DIR)/std/router_output_port_lookup_v1_0_0/
 	make -C $(LIB_HW_DIR)/std/barrier_v1_0_0/
 	make -C $(LIB_HW_DIR)/std/axi_sim_transactor_v1_0_0/
 	make -C $(LIB_HW_DIR)/std/axis_sim_record_v1_0_0/
