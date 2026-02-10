@@ -39,8 +39,8 @@
 from NFTest import *
 import os
 
-NUM_PORTS = 2
-NF2_MAX_PORTS = 2
+NUM_PORTS = 4
+NF2_MAX_PORTS = 4
 DMA_QUEUES = 2
 
 #instantiation

@@ -24,12 +24,12 @@
 #
 ### User defined
 export NFPLUS_FOLDER=${HOME}/NetFPGA-PLUS
-export BOARD_NAME=au250
-export NF_PROJECT_NAME=reference_switch
+export BOARD_NAME=au280
+export NF_PROJECT_NAME=mem_switch
 export PYTHON_BNRY=/usr/bin/python3
 
 ### Don't change
-export VERSION=2023.2
+export VERSION=2023.1
 export PROJECTS=${NFPLUS_FOLDER}/projects
 export CONTRIB_PROJECTS=${NFPLUS_FOLDER}/contrib-projects
 export NF_DESIGN_DIR=${NFPLUS_FOLDER}/hw/projects/${NF_PROJECT_NAME}

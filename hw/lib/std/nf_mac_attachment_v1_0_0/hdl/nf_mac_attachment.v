@@ -35,8 +35,8 @@
 
 module nf_mac_attachment #(
     // Master AXI Stream Data Width    
-    parameter C_M_AXIS_DATA_WIDTH       = 512,
-    parameter C_S_AXIS_DATA_WIDTH       = 512,
+    parameter C_M_AXIS_DATA_WIDTH       = 1024,
+    parameter C_S_AXIS_DATA_WIDTH       = 1024,
     parameter C_M_AXIS_TUSER_WIDTH      = 128,
     parameter C_S_AXIS_TUSER_WIDTH      = 128,
     parameter C_S_AXI_DATA_WIDTH        = 32,
@@ -51,16 +51,16 @@ module nf_mac_attachment #(
   input                                 areset_clk156,
 
   // RX MAC 64b@clk156 (no backpressure) -> rx_queue 64b@axis_clk
-  input [511:0]                         m_axis_mac_tdata,
-  input [63:0]                          m_axis_mac_tkeep,
+  input [1023:0]                         m_axis_mac_tdata,
+  input [127:0]                          m_axis_mac_tkeep,
   input                                 m_axis_mac_tvalid,
   input                                 m_axis_mac_tuser_err,   // valid frame
   input [C_M_AXIS_TUSER_WIDTH-1:0]      m_axis_mac_tuser,
   input                                 m_axis_mac_tlast,
 
   // tx_queue 64b@axis_clk -> mac 64b@clk156
-  output [511:0]                        s_axis_mac_tdata,
-  output [63:0]                         s_axis_mac_tkeep,
+  output [1023:0]                        s_axis_mac_tdata,
+  output [127:0]                         s_axis_mac_tkeep,
   output                                s_axis_mac_tvalid,
   output                                s_axis_mac_tuser_err,   //underrun
   output [C_M_AXIS_TUSER_WIDTH-1:0]     s_axis_mac_tuser,
@@ -116,8 +116,8 @@ module nf_mac_attachment #(
  /////////////////////////////////////////////////////////////////////   
  // localparam 
  /////////////////////////////////////////////////////////////////////
- localparam C_M_AXIS_DATA_WIDTH_INTERNAL    = 512;
- localparam C_S_AXIS_DATA_WIDTH_INTERNAL    = 512;    
+ localparam C_M_AXIS_DATA_WIDTH_INTERNAL    = 1024;
+ localparam C_S_AXIS_DATA_WIDTH_INTERNAL    = 1024;    
 
  localparam NUM_RW_REGS                     = 1;
  localparam NUM_RO_REGS                     = 17;

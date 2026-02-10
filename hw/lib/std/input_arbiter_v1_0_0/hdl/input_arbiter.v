@@ -57,11 +57,11 @@
 module input_arbiter
 #(
     // Master AXI Stream Data Width
-    parameter C_M_AXIS_DATA_WIDTH=512,
-    parameter C_S_AXIS_DATA_WIDTH=512,
+    parameter C_M_AXIS_DATA_WIDTH=1024,
+    parameter C_S_AXIS_DATA_WIDTH=1024,
     parameter C_M_AXIS_TUSER_WIDTH=128,
     parameter C_S_AXIS_TUSER_WIDTH=128,
-    parameter NUM_QUEUES=3,
+    parameter NUM_QUEUES=4,
     
     // AXI Registers Data Width
     parameter C_S_AXI_DATA_WIDTH    = 32,          
@@ -104,6 +104,13 @@ module input_arbiter
     input  s_axis_2_tvalid,
     output s_axis_2_tready,
     input  s_axis_2_tlast,
+    
+    input [C_S_AXIS_DATA_WIDTH - 1:0] s_axis_3_tdata,
+    input [((C_S_AXIS_DATA_WIDTH / 8)) - 1:0] s_axis_3_tkeep,
+    input [C_S_AXIS_TUSER_WIDTH-1:0] s_axis_3_tuser,
+    input  s_axis_3_tvalid,
+    output s_axis_3_tready,
+    input  s_axis_3_tlast,
 
     // Slave AXI Ports
     input                                     S_AXI_ACLK,
@@ -237,11 +244,19 @@ module input_arbiter
   assign in_tlast[2]        = s_axis_2_tlast;
   assign s_axis_2_tready    = !nearly_full[2];
 
+  assign in_tdata[3]        = s_axis_3_tdata;
+  assign in_tkeep[3]        = s_axis_3_tkeep;
+  assign in_tuser[3]        = s_axis_3_tuser;
+  assign in_tvalid[3]       = s_axis_3_tvalid;
+  assign in_tlast[3]        = s_axis_3_tlast;
+  assign s_axis_3_tready    = !nearly_full[3];
+
   //Find the next non-empty queue
   assign extended_empty = {empty,empty};
   assign extended_next_queue = !extended_empty[cur_queue+1] ? cur_queue+1 : 
                                !extended_empty[cur_queue+2] ? cur_queue+2 :
                                !extended_empty[cur_queue+3] ? cur_queue+3 :
+                               !extended_empty[cur_queue+4] ? cur_queue+4 :
                                cur_queue+1;
   assign {unused,next_queue} = (extended_next_queue > NUM_QUEUES-1) ? extended_next_queue - NUM_QUEUES : extended_next_queue; 
 
@@ -372,8 +387,8 @@ module input_arbiter
       id_reg <= #1 `REG_ID_DEFAULT;
       version_reg <= #1 `REG_VERSION_DEFAULT;
       ip2cpu_flip_reg <= #1 ~cpu2ip_flip_reg;
-      pktin_reg[`REG_PKTIN_WIDTH -2: 0] <= #1  clear_counters | pktin_reg_clear ? 'h0  : pktin_reg[`REG_PKTIN_WIDTH-2:0] + (s_axis_0_tlast && s_axis_0_tvalid && s_axis_0_tready ) + (s_axis_1_tlast && s_axis_1_tvalid && s_axis_1_tready) + (s_axis_2_tlast && s_axis_2_tvalid && s_axis_2_tready);
-        pktin_reg[`REG_PKTIN_WIDTH-1] <= #1 clear_counters | pktin_reg_clear ? 1'h0 : pktin_reg_clear ? 'h0  : pktin_reg[`REG_PKTIN_WIDTH-2:0] + pktin_reg[`REG_PKTIN_WIDTH-2:0] + (s_axis_0_tlast && s_axis_0_tvalid && s_axis_0_tready ) + (s_axis_1_tlast && s_axis_1_tvalid && s_axis_1_tready) + (s_axis_2_tlast && s_axis_2_tvalid && s_axis_2_tready) > {(`REG_PKTIN_WIDTH-1){1'b1}} ? 1'b1 : pktin_reg[`REG_PKTIN_WIDTH-1];
+      pktin_reg[`REG_PKTIN_WIDTH -2: 0] <= #1  clear_counters | pktin_reg_clear ? 'h0  : pktin_reg[`REG_PKTIN_WIDTH-2:0] + (s_axis_0_tlast && s_axis_0_tvalid && s_axis_0_tready ) + (s_axis_1_tlast && s_axis_1_tvalid && s_axis_1_tready) + (s_axis_2_tlast && s_axis_2_tvalid && s_axis_2_tready) + (s_axis_3_tlast && s_axis_3_tvalid && s_axis_3_tready);
+        pktin_reg[`REG_PKTIN_WIDTH-1] <= #1 clear_counters | pktin_reg_clear ? 1'h0 : pktin_reg_clear ? 'h0  : pktin_reg[`REG_PKTIN_WIDTH-2:0] + pktin_reg[`REG_PKTIN_WIDTH-2:0] + (s_axis_0_tlast && s_axis_0_tvalid && s_axis_0_tready ) + (s_axis_1_tlast && s_axis_1_tvalid && s_axis_1_tready) + (s_axis_2_tlast && s_axis_2_tvalid && s_axis_2_tready) + (s_axis_3_tlast && s_axis_3_tvalid && s_axis_3_tready) > {(`REG_PKTIN_WIDTH-1){1'b1}} ? 1'b1 : pktin_reg[`REG_PKTIN_WIDTH-1];
                                                                  
       pktout_reg [`REG_PKTOUT_WIDTH-2:0]<= #1  clear_counters | pktout_reg_clear ? 'h0  : pktout_reg [`REG_PKTOUT_WIDTH-2:0] + (m_axis_tvalid && m_axis_tlast && m_axis_tready ) ;
         pktout_reg [`REG_PKTOUT_WIDTH-1]<= #1  clear_counters | pktout_reg_clear ? 'h0  : pktout_reg [`REG_PKTOUT_WIDTH-2:0] + (m_axis_tvalid && m_axis_tlast && m_axis_tready) > {(`REG_PKTOUT_WIDTH-1){1'b1}} ?  1'b1 : pktout_reg [`REG_PKTOUT_WIDTH-1];

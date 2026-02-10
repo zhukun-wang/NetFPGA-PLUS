@@ -57,11 +57,11 @@
 module output_queues
 #(
     // Master AXI Stream Data Width
-    parameter C_M_AXIS_DATA_WIDTH=512,
-    parameter C_S_AXIS_DATA_WIDTH=512,
+    parameter C_M_AXIS_DATA_WIDTH=1024,
+    parameter C_S_AXIS_DATA_WIDTH=1024,
     parameter C_M_AXIS_TUSER_WIDTH=128,
     parameter C_S_AXIS_TUSER_WIDTH=128,
-    parameter NUM_QUEUES=3,
+    parameter NUM_QUEUES=4,
 
  // AXI Registers Data Width
     parameter C_S_AXI_DATA_WIDTH    = 32,          
@@ -105,6 +105,13 @@ module output_queues
     input m_axis_2_tready,
     output  m_axis_2_tlast,
 
+    output [C_M_AXIS_DATA_WIDTH - 1:0] m_axis_3_tdata,
+    output [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_3_tkeep,
+    output [C_M_AXIS_TUSER_WIDTH-1:0] m_axis_3_tuser,
+    output  m_axis_3_tvalid,
+    input m_axis_3_tready,
+    output  m_axis_3_tlast,
+    
     // stats
     output reg  [C_S_AXI_DATA_WIDTH-1:0] bytes_stored,
     output reg  [NUM_QUEUES-1:0]         pkt_stored,
@@ -232,6 +239,7 @@ module output_queues
   wire                             bytesdroppedport0_reg_clear;
   reg      [`REG_PKTINQUEUEPORT0_BITS]    pktinqueueport0_reg;
   wire                             pktinqueueport0_reg_clear;
+  
   reg      [`REG_PKTSTOREDPORT1_BITS]    pktstoredport1_reg;
   wire                             pktstoredport1_reg_clear;
   reg      [`REG_BYTESSTOREDPORT1_BITS]    bytesstoredport1_reg;
@@ -246,6 +254,7 @@ module output_queues
   wire                             bytesdroppedport1_reg_clear;
   reg      [`REG_PKTINQUEUEPORT1_BITS]    pktinqueueport1_reg;
   wire                             pktinqueueport1_reg_clear;
+  
   reg      [`REG_PKTSTOREDPORT2_BITS]    pktstoredport2_reg;
   wire                             pktstoredport2_reg_clear;
   reg      [`REG_BYTESSTOREDPORT2_BITS]    bytesstoredport2_reg;
@@ -260,6 +269,21 @@ module output_queues
   wire                             bytesdroppedport2_reg_clear;
   reg      [`REG_PKTINQUEUEPORT2_BITS]    pktinqueueport2_reg;
   wire                             pktinqueueport2_reg_clear;
+
+  reg      [`REG_PKTSTOREDPORT3_BITS]    pktstoredport3_reg;
+  wire                             pktstoredport3_reg_clear;
+  reg      [`REG_BYTESSTOREDPORT3_BITS]    bytesstoredport3_reg;
+  wire                             bytesstoredport3_reg_clear;
+  reg      [`REG_PKTREMOVEDPORT3_BITS]    pktremovedport3_reg;
+  wire                             pktremovedport3_reg_clear;
+  reg      [`REG_BYTESREMOVEDPORT3_BITS]    bytesremovedport3_reg;
+  wire                             bytesremovedport3_reg_clear;
+  reg      [`REG_PKTDROPPEDPORT3_BITS]    pktdroppedport3_reg;
+  wire                             pktdroppedport3_reg_clear;
+  reg      [`REG_BYTESDROPPEDPORT3_BITS]    bytesdroppedport3_reg;
+  wire                             bytesdroppedport3_reg_clear;
+  reg      [`REG_PKTINQUEUEPORT3_BITS]    pktinqueueport3_reg;
+  wire                             pktinqueueport3_reg_clear;
 
   wire clear_counters;
   wire reset_registers;
@@ -350,9 +374,7 @@ module output_queues
 
   // Per NetFPGA-10G AXI Spec
   localparam DST_POS = 24;
-  assign oq = s_axis_tuser[DST_POS] |
-              (s_axis_tuser[DST_POS + 2] << 1) |
-              ((s_axis_tuser[DST_POS + 1] | s_axis_tuser[DST_POS + 3]) << 2);
+  assign oq = s_axis_tuser[DST_POS+3:DST_POS];
 
   always @(*) begin
      state_next     = state;
@@ -464,6 +486,15 @@ module output_queues
   assign rd_en[2]		 = m_axis_2_tready & ~empty[2];
   assign pkt_removed_2          = pkt_removed[2];
   assign bytes_removed_2          = bytes_removed[2];
+
+  assign m_axis_3_tdata	 = fifo_out_tdata[3];
+  assign m_axis_3_tkeep	 = fifo_out_tkeep[3];
+  assign m_axis_3_tuser	 = fifo_out_tuser[3];
+  assign m_axis_3_tlast	 = fifo_out_tlast[3];
+  assign m_axis_3_tvalid	 = ~empty[3];
+  assign rd_en[3]		 = m_axis_3_tready & ~empty[3];
+  assign pkt_removed_3          = pkt_removed[3];
+  assign bytes_removed_3          = bytes_removed[3];
 
   //Registers section
   output_queues_cpu_regs 

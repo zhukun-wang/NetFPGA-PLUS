@@ -50,7 +50,7 @@ module mac_cam_lut
     #(parameter NUM_OUTPUT_QUEUES = 8,
       parameter LUT_DEPTH_BITS = 4,
       parameter LUT_DEPTH = 2**LUT_DEPTH_BITS,
-      parameter DEFAULT_MISS_OUTPUT_PORTS = 8'h05) // only send to the MAC txfifos not the cpu
+      parameter DEFAULT_MISS_OUTPUT_PORTS = 8'b00001111) // only send to the MAC txfifos not the cpu
 
    ( // --- core functionality signals
      input [47:0]                       dst_mac,

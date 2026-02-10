@@ -39,7 +39,7 @@ from NFTest import *
 import sys
 import os
 from scapy.layers.all import Ether, IP, TCP
-from reg_defines_reference_switch import *
+from reg_defines_mem_switch import *
 
 phy2loop0 = ('../connections/conn', [])
 nftest_init(sim_loop = [], hw_config = [phy2loop0])
@@ -69,7 +69,7 @@ pkts = []
 for i in range(num_broadcast):
     pkt = make_IP_pkt(src_MAC="aa:bb:cc:dd:ee:ff", dst_MAC=routerMAC[0],
                       EtherType=0x800, src_IP="192.168.0.1",
-                      dst_IP="192.168.1.1", pkt_len=60)
+                      dst_IP="192.168.1.1", pkt_len=512)
 
     pkt.time = ((i*(1e-8)) + (2e-6))
     pkts.append(pkt)

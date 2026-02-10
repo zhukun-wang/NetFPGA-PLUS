@@ -1,12 +1,10 @@
 #
-# Copyright (c) 2015 University of Cambridge
+# Copyright (c) 2021 Yuta Tokusashi
 # All rights reserved.
 #
-# This software was developed by Stanford University and the University of Cambridge Computer Laboratory 
-# under National Science Foundation under Grant No. CNS-0855268,
-# the University of Cambridge Computer Laboratory under EPSRC INTERNET Project EP/H040536/1 and
-# by the University of Cambridge Computer Laboratory under DARPA/AFRL contract FA8750-11-C-0249 ("MRC2"), 
-# as part of the DARPA MRC research programme.
+# This software was developed by the University of Cambridge Computer
+# Laboratory under EPSRC EARL Project EP/P025374/1 alongside support 
+# from Xilinx Inc.
 #
 # @NETFPGA_LICENSE_HEADER_START@
 #
@@ -25,8 +23,7 @@
 # @NETFPGA_LICENSE_HEADER_END@
 #
 
-
-nf0:eth1
-nf1:eth2
-nf2:eth3
-nf3:eth4
+create_pblock pblock_nf_datapath
+add_cells_to_pblock [get_pblocks pblock_nf_datapath] [get_cells -quiet [list nf_datapath_0]]
+add_cells_to_pblock [get_pblocks pblock_nf_datapath] [get_cells -quiet [list u_top_wrapper/u_nf_attachment]]
+resize_pblock [get_pblocks pblock_nf_datapath] -add {SLR2}

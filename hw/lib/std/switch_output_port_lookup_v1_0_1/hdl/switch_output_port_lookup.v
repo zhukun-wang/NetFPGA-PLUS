@@ -54,8 +54,8 @@
 module switch_output_port_lookup
 #(
     //Master AXI Stream Data Width
-    parameter C_M_AXIS_DATA_WIDTH  = 512,
-    parameter C_S_AXIS_DATA_WIDTH  = 512,
+    parameter C_M_AXIS_DATA_WIDTH  = 1024,
+    parameter C_S_AXIS_DATA_WIDTH  = 1024,
     parameter C_M_AXIS_TUSER_WIDTH = 128,
     parameter C_S_AXIS_TUSER_WIDTH = 128,
     parameter SRC_PORT_POS         = 16,
@@ -137,7 +137,7 @@ module switch_output_port_lookup
   endfunction // log2
 
   //--------------------- Internal Parameter-------------------------
-  localparam DEFAULT_MISS_OUTPUT_PORTS = 8'h05; // exclude the CPU queues
+  localparam DEFAULT_MISS_OUTPUT_PORTS = 8'b00001111; // exclude the CPU queues
 
   localparam NUM_STATES                = 2;
   localparam WAIT_STATE                = 1;

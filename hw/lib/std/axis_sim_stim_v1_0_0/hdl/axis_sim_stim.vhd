@@ -55,7 +55,7 @@ use xil_defaultlib.axis_sim_pkg.all;
 
 entity axis_sim_stim is
     generic (
-        C_M_AXIS_DATA_WIDTH : integer := 512;
+        C_M_AXIS_DATA_WIDTH : integer := 1024;
         C_M_AXIS_TUSER_WIDTH: integer := 128;
         input_file          : string  := "../../stream_data_in.axi"
         );
