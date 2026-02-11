@@ -199,7 +199,7 @@ module nf_datapath #(
     wire [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] axis_mem_0_tkeep,  axis_mem_1_tkeep,  axis_mem_2_tkeep,  axis_mem_3_tkeep;
     wire [C_M_AXIS_TUSER_WIDTH-1:0]          axis_mem_0_tuser,  axis_mem_1_tuser,  axis_mem_2_tuser,  axis_mem_3_tuser;
     wire                                     axis_mem_0_tvalid, axis_mem_1_tvalid, axis_mem_2_tvalid, axis_mem_3_tvalid;
-    wire                                     axis_mem_0_tready, axis_mem_1_tready, axis_mem_2_tready, axis_mem_3_tready;
+    wire [3:0]                               axis_mem_0_tready, axis_mem_1_tready, axis_mem_2_tready, axis_mem_3_tready;
     wire                                     axis_mem_0_tlast,  axis_mem_1_tlast,  axis_mem_2_tlast,  axis_mem_3_tlast;
     
     wire [C_M_AXIS_DATA_WIDTH - 1:0]         axis_com_0_tdata,  axis_com_1_tdata,  axis_com_2_tdata,  axis_com_3_tdata;
@@ -228,7 +228,7 @@ spliter  spliter_0 (
       .m_axis_mem_tkeep (axis_mem_0_tkeep), 
       .m_axis_mem_tuser (axis_mem_0_tuser), 
       .m_axis_mem_tvalid(axis_mem_0_tvalid), 
-      .m_axis_mem_tready(axis_mem_0_tready), 
+      .m_axis_mem_tready(|axis_mem_0_tready), 
       .m_axis_mem_tlast (axis_mem_0_tlast)
     );
 
@@ -251,7 +251,7 @@ spliter  spliter_1 (
       .m_axis_mem_tkeep (axis_mem_1_tkeep), 
       .m_axis_mem_tuser (axis_mem_1_tuser), 
       .m_axis_mem_tvalid(axis_mem_1_tvalid), 
-      .m_axis_mem_tready(axis_mem_1_tready), 
+      .m_axis_mem_tready(|axis_mem_1_tready), 
       .m_axis_mem_tlast (axis_mem_1_tlast)
     );
     
@@ -274,7 +274,7 @@ spliter  spliter_2 (
       .m_axis_mem_tkeep (axis_mem_2_tkeep), 
       .m_axis_mem_tuser (axis_mem_2_tuser), 
       .m_axis_mem_tvalid(axis_mem_2_tvalid), 
-      .m_axis_mem_tready(axis_mem_2_tready), 
+      .m_axis_mem_tready(|axis_mem_2_tready), 
       .m_axis_mem_tlast (axis_mem_2_tlast)
     );
     
@@ -297,7 +297,7 @@ spliter  spliter_3 (
       .m_axis_mem_tkeep (axis_mem_3_tkeep), 
       .m_axis_mem_tuser (axis_mem_3_tuser), 
       .m_axis_mem_tvalid(axis_mem_3_tvalid), 
-      .m_axis_mem_tready(axis_mem_3_tready), 
+      .m_axis_mem_tready(|axis_mem_3_tready), 
       .m_axis_mem_tlast (axis_mem_3_tlast)
     );
 
@@ -482,25 +482,25 @@ combiner  combiner_0 (
       .s_axis_mem_0_tkeep (axis_mem_0_tkeep), 
       .s_axis_mem_0_tuser (axis_mem_0_tuser), 
       .s_axis_mem_0_tvalid(axis_mem_0_tvalid), 
-      .s_axis_mem_0_tready(axis_mem_0_tready), 
+      .s_axis_mem_0_tready(axis_mem_0_tready[0]), 
       .s_axis_mem_0_tlast (axis_mem_0_tlast),
       .s_axis_mem_1_tdata (axis_mem_1_tdata), 
       .s_axis_mem_1_tkeep (axis_mem_1_tkeep), 
       .s_axis_mem_1_tuser (axis_mem_1_tuser), 
       .s_axis_mem_1_tvalid(axis_mem_1_tvalid), 
-      .s_axis_mem_1_tready(axis_mem_1_tready), 
+      .s_axis_mem_1_tready(axis_mem_1_tready[0]), 
       .s_axis_mem_1_tlast (axis_mem_1_tlast),
       .s_axis_mem_2_tdata (axis_mem_2_tdata), 
       .s_axis_mem_2_tkeep (axis_mem_2_tkeep), 
       .s_axis_mem_2_tuser (axis_mem_2_tuser), 
       .s_axis_mem_2_tvalid(axis_mem_2_tvalid), 
-      .s_axis_mem_2_tready(axis_mem_2_tready), 
+      .s_axis_mem_2_tready(axis_mem_2_tready[0]), 
       .s_axis_mem_2_tlast (axis_mem_2_tlast),
       .s_axis_mem_3_tdata (axis_mem_3_tdata), 
       .s_axis_mem_3_tkeep (axis_mem_3_tkeep), 
       .s_axis_mem_3_tuser (axis_mem_3_tuser), 
       .s_axis_mem_3_tvalid(axis_mem_3_tvalid), 
-      .s_axis_mem_3_tready(axis_mem_3_tready), 
+      .s_axis_mem_3_tready(axis_mem_3_tready[0]), 
       .s_axis_mem_3_tlast (axis_mem_3_tlast)
     );
 
@@ -523,25 +523,25 @@ combiner  combiner_1 (
       .s_axis_mem_0_tkeep (axis_mem_0_tkeep), 
       .s_axis_mem_0_tuser (axis_mem_0_tuser), 
       .s_axis_mem_0_tvalid(axis_mem_0_tvalid), 
-      .s_axis_mem_0_tready(axis_mem_0_tready), 
+      .s_axis_mem_0_tready(axis_mem_0_tready[1]), 
       .s_axis_mem_0_tlast (axis_mem_0_tlast),
       .s_axis_mem_1_tdata (axis_mem_1_tdata), 
       .s_axis_mem_1_tkeep (axis_mem_1_tkeep), 
       .s_axis_mem_1_tuser (axis_mem_1_tuser), 
       .s_axis_mem_1_tvalid(axis_mem_1_tvalid), 
-      .s_axis_mem_1_tready(axis_mem_1_tready), 
+      .s_axis_mem_1_tready(axis_mem_1_tready[1]), 
       .s_axis_mem_1_tlast (axis_mem_1_tlast),
       .s_axis_mem_2_tdata (axis_mem_2_tdata), 
       .s_axis_mem_2_tkeep (axis_mem_2_tkeep), 
       .s_axis_mem_2_tuser (axis_mem_2_tuser), 
       .s_axis_mem_2_tvalid(axis_mem_2_tvalid), 
-      .s_axis_mem_2_tready(axis_mem_2_tready), 
+      .s_axis_mem_2_tready(axis_mem_2_tready[1]), 
       .s_axis_mem_2_tlast (axis_mem_2_tlast),
       .s_axis_mem_3_tdata (axis_mem_3_tdata), 
       .s_axis_mem_3_tkeep (axis_mem_3_tkeep), 
       .s_axis_mem_3_tuser (axis_mem_3_tuser), 
       .s_axis_mem_3_tvalid(axis_mem_3_tvalid), 
-      .s_axis_mem_3_tready(axis_mem_3_tready), 
+      .s_axis_mem_3_tready(axis_mem_3_tready[1]), 
       .s_axis_mem_3_tlast (axis_mem_3_tlast)
     );
     
@@ -564,25 +564,25 @@ combiner  combiner_2 (
       .s_axis_mem_0_tkeep (axis_mem_0_tkeep), 
       .s_axis_mem_0_tuser (axis_mem_0_tuser), 
       .s_axis_mem_0_tvalid(axis_mem_0_tvalid), 
-      .s_axis_mem_0_tready(axis_mem_0_tready), 
+      .s_axis_mem_0_tready(axis_mem_0_tready[2]), 
       .s_axis_mem_0_tlast (axis_mem_0_tlast),
       .s_axis_mem_1_tdata (axis_mem_1_tdata), 
       .s_axis_mem_1_tkeep (axis_mem_1_tkeep), 
       .s_axis_mem_1_tuser (axis_mem_1_tuser), 
       .s_axis_mem_1_tvalid(axis_mem_1_tvalid), 
-      .s_axis_mem_1_tready(axis_mem_1_tready), 
+      .s_axis_mem_1_tready(axis_mem_1_tready[2]), 
       .s_axis_mem_1_tlast (axis_mem_1_tlast),
       .s_axis_mem_2_tdata (axis_mem_2_tdata), 
       .s_axis_mem_2_tkeep (axis_mem_2_tkeep), 
       .s_axis_mem_2_tuser (axis_mem_2_tuser), 
       .s_axis_mem_2_tvalid(axis_mem_2_tvalid), 
-      .s_axis_mem_2_tready(axis_mem_2_tready), 
+      .s_axis_mem_2_tready(axis_mem_2_tready[2]), 
       .s_axis_mem_2_tlast (axis_mem_2_tlast),
       .s_axis_mem_3_tdata (axis_mem_3_tdata), 
       .s_axis_mem_3_tkeep (axis_mem_3_tkeep), 
       .s_axis_mem_3_tuser (axis_mem_3_tuser), 
       .s_axis_mem_3_tvalid(axis_mem_3_tvalid), 
-      .s_axis_mem_3_tready(axis_mem_3_tready), 
+      .s_axis_mem_3_tready(axis_mem_3_tready[2]), 
       .s_axis_mem_3_tlast (axis_mem_3_tlast)
     );
     
@@ -605,25 +605,25 @@ combiner  combiner_3 (
       .s_axis_mem_0_tkeep (axis_mem_0_tkeep), 
       .s_axis_mem_0_tuser (axis_mem_0_tuser), 
       .s_axis_mem_0_tvalid(axis_mem_0_tvalid), 
-      .s_axis_mem_0_tready(axis_mem_0_tready), 
+      .s_axis_mem_0_tready(axis_mem_0_tready[3]), 
       .s_axis_mem_0_tlast (axis_mem_0_tlast),
       .s_axis_mem_1_tdata (axis_mem_1_tdata), 
       .s_axis_mem_1_tkeep (axis_mem_1_tkeep), 
       .s_axis_mem_1_tuser (axis_mem_1_tuser), 
       .s_axis_mem_1_tvalid(axis_mem_1_tvalid), 
-      .s_axis_mem_1_tready(axis_mem_1_tready), 
+      .s_axis_mem_1_tready(axis_mem_1_tready[3]), 
       .s_axis_mem_1_tlast (axis_mem_1_tlast),
       .s_axis_mem_2_tdata (axis_mem_2_tdata), 
       .s_axis_mem_2_tkeep (axis_mem_2_tkeep), 
       .s_axis_mem_2_tuser (axis_mem_2_tuser), 
       .s_axis_mem_2_tvalid(axis_mem_2_tvalid), 
-      .s_axis_mem_2_tready(axis_mem_2_tready), 
+      .s_axis_mem_2_tready(axis_mem_2_tready[3]), 
       .s_axis_mem_2_tlast (axis_mem_2_tlast),
       .s_axis_mem_3_tdata (axis_mem_3_tdata), 
       .s_axis_mem_3_tkeep (axis_mem_3_tkeep), 
       .s_axis_mem_3_tuser (axis_mem_3_tuser), 
       .s_axis_mem_3_tvalid(axis_mem_3_tvalid), 
-      .s_axis_mem_3_tready(axis_mem_3_tready), 
+      .s_axis_mem_3_tready(axis_mem_3_tready[3]), 
       .s_axis_mem_3_tlast (axis_mem_3_tlast)
     );
 
