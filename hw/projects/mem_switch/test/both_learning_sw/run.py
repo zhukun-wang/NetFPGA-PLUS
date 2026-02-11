@@ -39,7 +39,7 @@ from NFTest import *
 import sys
 import os
 from scapy.layers.all import Ether, IP, TCP
-from reg_defines_reference_switch import *
+from reg_defines_mem_switch import *
 
 phy2loop0 = ('../connections/conn', [])
 nftest_init(sim_loop = [], hw_config = [phy2loop0])
@@ -60,44 +60,110 @@ nftest_start()
 
 routerMAC = []
 routerIP = []
-for i in range(2):
+for i in range(4):
     routerMAC.append("00:0a:35:03:00:0%d"%(i+1))
     routerIP.append("192.168.%s.40"%i)
 
 num_broadcast = 10
 
-pkts = []
-pkta = []
+pkts0 = []
+pkts1 = []
+pkts2 = []
+pkts3 = []
+pkts0e = []
+pkts1e = []
+pkts2e = []
+pkts3e = []
+pktsa = []
+pktsb = []
+pktsc = []
+pktsd = []
+
 for i in range(num_broadcast):
-    pkt = make_IP_pkt(src_MAC="aa:bb:cc:dd:ee:ff", dst_MAC=routerMAC[0],
+    pkt0 = make_IP_pkt(src_MAC=routerMAC[0], dst_MAC="aa:bb:cc:dd:ee:ff",
+                      src_IP="192.168.0.1", dst_IP="192.168.1.1", pkt_len=128)
+
+    pkt0.time = 2e-6
+    pkts0.append(pkt0)
+    pkts1e.append(pkt0)
+    pkts2e.append(pkt0)
+    pkts3e.append(pkt0)
+
+for i in range(num_broadcast):
+    pkt1 = make_IP_pkt(src_MAC=routerMAC[1], dst_MAC="aa:bb:cc:dd:ee:ff",
                       src_IP="192.168.0.1", dst_IP="192.168.1.1", pkt_len=512)
 
-    pkt.time = ((i*(1e-8)) + (2e-6))
-    pkts.append(pkt)
-    if isHW():
-        nftest_send_phy('nf0', pkt)
-        nftest_expect_phy('nf1', pkt)
-    
+    pkt1.time = ((5e-7) + (2e-6))
+    pkts1.append(pkt1)
+    pkts0e.append(pkt1)
+    pkts2e.append(pkt1)
+    pkts3e.append(pkt1)
+
+for i in range(num_broadcast):
+    pkt2 = make_IP_pkt(src_MAC=routerMAC[2], dst_MAC="aa:bb:cc:dd:ee:ff",
+                      src_IP="192.168.0.1", dst_IP="192.168.1.1", pkt_len=1024)
+
+    pkt2.time = ((10e-7) + (2e-6))
+    pkts2.append(pkt2)
+    pkts0e.append(pkt2)
+    pkts1e.append(pkt2)
+    pkts3e.append(pkt2)
+
+for i in range(num_broadcast):
+    pkt3 = make_IP_pkt(src_MAC=routerMAC[3], dst_MAC="aa:bb:cc:dd:ee:ff",
+                      src_IP="192.168.0.1", dst_IP="192.168.1.1", pkt_len=256)
+
+    pkt3.time = ((15e-7) + (2e-6))
+    pkts3.append(pkt3)
+    pkts0e.append(pkt3)
+    pkts1e.append(pkt3)
+    pkts2e.append(pkt3)
+
 if not isHW():
-    nftest_send_phy('nf0', pkts)
-    nftest_expect_phy('nf1', pkts)
+    nftest_send_phy('nf0', pkts0)
+    nftest_send_phy('nf1', pkts1)
+    nftest_send_phy('nf2', pkts2)
+    nftest_send_phy('nf3', pkts3)
+    nftest_expect_phy('nf0', pkts0e)
+    nftest_expect_phy('nf1', pkts1e)
+    nftest_expect_phy('nf2', pkts2e)
+    nftest_expect_phy('nf3', pkts3e)
 
-nftest_barrier()
+#nftest_barrier()
 
-num_normal = 10
+
+num_normal = 50
 
 for i in range(num_normal):
-    pkt = make_IP_pkt(dst_MAC="aa:bb:cc:dd:ee:ff", src_MAC=routerMAC[1],
+    pkta = make_IP_pkt(src_MAC=routerMAC[0], dst_MAC=routerMAC[1],
                      src_IP="192.168.0.1", dst_IP="192.168.1.1", pkt_len=512)
-    pkt.time = (((i+5)*(1e-8)) + (2e-6))
-    pkta.append(pkt)
-    if isHW():
-    	nftest_send_phy('nf1', pkt)
-    	nftest_expect_phy('nf0', pkt)
+    pkta.time = ((25e-7) + (2e-6))
+    pktsa.append(pkta)
+
+    pktb = make_IP_pkt(src_MAC=routerMAC[1], dst_MAC=routerMAC[2],
+                     src_IP="192.168.0.1", dst_IP="192.168.1.1", pkt_len=512)
+    pktb.time = ((25e-7) + (2e-6))
+    pktsb.append(pktb)
+
+    pktc = make_IP_pkt(src_MAC=routerMAC[2], dst_MAC=routerMAC[3],
+                     src_IP="192.168.0.1", dst_IP="192.168.1.1", pkt_len=512)
+    pktc.time = ((25e-7) + (2e-6))
+    pktsc.append(pktc)
+
+    pktd = make_IP_pkt(src_MAC=routerMAC[3], dst_MAC=routerMAC[0],
+                     src_IP="192.168.0.1", dst_IP="192.168.1.1", pkt_len=512)
+    pktd.time = ((25e-7) + (2e-6))
+    pktsd.append(pktd)
 
 if not isHW():
-    nftest_send_phy('nf1', pkta)
-    nftest_expect_phy('nf0', pkta)
+    nftest_send_phy('nf0', pktsa)
+    nftest_send_phy('nf1', pktsb)
+    nftest_send_phy('nf2', pktsc)
+    nftest_send_phy('nf3', pktsd)
+    nftest_expect_phy('nf0', pktsd)
+    nftest_expect_phy('nf1', pktsa)
+    nftest_expect_phy('nf2', pktsb)
+    nftest_expect_phy('nf3', pktsc)
 
 nftest_barrier()
 
